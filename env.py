@@ -5,7 +5,7 @@ class TestEnv(gym.Env):
     metadata = {'render.modes': ['human', 'system', 'none']}
 
     def __init__(self):
-        self.action_space = gym.spaces.MultiDiscrete([2])
+        self.action_space = gym.spaces.MultiDiscrete([3])
 
         self.observation_shape = (1, 100)
         self.observation_space = gym.spaces.Box(low=0, high=1, shape=self.observation_shape, dtype=np.float16)
@@ -13,28 +13,36 @@ class TestEnv(gym.Env):
     def reset(self):
         self.counter = 0
         self.action_state = 2
-        self.valid_actions = [1,1]
+        self.valid_actions = [1, 1, 1]
         print('reset')
         
         return self.state()
 
     def step(self, action):
+        current_actions = None
+
         if action[0] == 0:
             if self.action_state == 0:
                 print('Invalid actions')
+                current_actions = [2]
+
 
             self.action_state = 0
-            self.valid_actions = [0,1]
+            self.valid_actions = [0, 1]
 
         if action[0] == 1:
             if self.action_state == 1:
                 print('Invalid actions')
+                current_actions = [2]
 
             self.action_state = 1
-            self.valid_actions = [1,0]
+            self.valid_actions = [1, 0]
 
         self.counter += 1
-        return self.state(), 0, self.finish(), {'valid_actions' : self.valid_actions}
+        if current_actions is not None:
+            return self.state(), 0, self.finish(), {'current_actions' : current_actions}
+
+        return self.state(), 0, self.finish(), {}
 
 
     def render(self, mode='human'):
