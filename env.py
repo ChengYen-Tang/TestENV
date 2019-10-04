@@ -24,17 +24,17 @@ class TestEnv(gym.Env):
                 print('Invalid actions')
 
             self.action_state = 0
-            self.valid_actions = [0,1]
+            self.valid_actions = [[0,1]]
 
         if action[0] == 1:
             if self.action_state == 1:
                 print('Invalid actions')
 
             self.action_state = 1
-            self.valid_actions = [1,0]
+            self.valid_actions = [[1,0]]
 
         self.counter += 1
-        return self.state(), 0, self.finish(), {'valid_actions' : self.valid_actions}
+        return self.state(), 0, self.finish(), {'action_mask' : self.valid_actions}
 
 
     def render(self, mode='human'):

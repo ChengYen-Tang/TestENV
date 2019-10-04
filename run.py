@@ -1,5 +1,5 @@
-from stable_baselines.common.policies import MlpLnLstmPolicy
-from stable_baselines.common.vec_env import  SubprocVecEnv
+from stable_baselines.common.policies import MlpLnLstmPolicy, MlpPolicy
+from stable_baselines.common.vec_env import  SubprocVecEnv, DummyVecEnv
 from stable_baselines import PPO2
 
 from env import TestEnv
