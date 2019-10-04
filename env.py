@@ -5,7 +5,7 @@ class TestEnv(gym.Env):
     metadata = {'render.modes': ['human', 'system', 'none']}
 
     def __init__(self):
-        self.action_space = gym.spaces.MultiDiscrete([3])
+        self.action_space = gym.spaces.MultiDiscrete([2])
 
         self.observation_shape = (1, 100)
         self.observation_space = gym.spaces.Box(low=0, high=1, shape=self.observation_shape, dtype=np.float16)
